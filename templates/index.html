@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srishti Treasure Hunt</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            background: #ffcc00;
+            color: #1e3c72;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #ffdb4d;
+        }
+        .output {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Srishti Treasure Hunt</h1>
+        <h2>Enter Inputs</h2>
+        <input type="text" id="input1" placeholder="Enter Chest number">
+        <input type="text" id="input2" placeholder="Enter current location">
+        <button onclick="processInputs()">Submit</button>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        function processInputs() {
+            let input1 = document.getElementById("input1").value;
+            let input2 = document.getElementById("input2").value;
+
+            fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input1: input1, input2: input2 })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("output").innerText = data.result;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
