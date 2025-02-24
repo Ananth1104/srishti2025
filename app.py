@@ -16,8 +16,8 @@ def process():
     input1 = data.get("input1", "")
     try:
         input2 = int(data.get("input2", ""))
-    except e as e:
-        print("Invalid")
+    except ValueError as e:  # Handle conversion error
+        return jsonify({"error": "Invalid location number, must be an integer"})
     print(input1,input2)
     result = get_next_location(input1,input2)
     print(result)
